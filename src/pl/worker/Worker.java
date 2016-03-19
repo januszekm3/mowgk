@@ -9,6 +9,7 @@ public class Worker {
 
 	public static void main(String[] args) {
 		long start, stop;
+		int flag;
 		Set<Integer> sasiedzi0, sasiedzi1;
 		DataHolder dataHolder = new DataHolder("resources/ant.ply");
 		//DataHolder dataHolder = new DataHolder("resources/cam.off");
@@ -138,6 +139,30 @@ public class Worker {
 
 		System.out.println("\n3.1.5.okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
+		flag = 0;
+		int i = 0, j = 0, k = 0;
+		while (i < dataHolder.faces.length && flag == 0){
+			while (j < 3 && flag == 0){	//3 krawedzie w obrebie elementu	
+				wierzcholek0 =  dataHolder.faces[i][j];
+				wierzcholek1 =  dataHolder.faces[i][(j+1)%3];
+				while (k < dataHolder.faces.length && flag == 0){
+					if (i != k) //czy nie porownujemy z tym samym elementem
+					if (!(((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][1]) 
+							|| (wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][0]))
+						|| ((wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][2]) 
+							|| (wierzcholek0 == dataHolder.faces[k][2] && wierzcholek1 == dataHolder.faces[k][1]))
+						|| ((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][2]) 
+							|| (wierzcholek0 == dataHolder.faces[k][2] && wierzcholek1 == dataHolder.faces[k][0])))){
+						flag = 1;
+					}
+					k++;
+				}
+				j++;
+			}
+			i++;
+		}
+		if (flag==1) System.out.println("Siatka posiada brzeg");
+		else System.out.println("Siatka nie posiada brzegu");
 		stop = System.nanoTime();
 		System.out.println("Czas wykonania: "+(stop-start));
 		
