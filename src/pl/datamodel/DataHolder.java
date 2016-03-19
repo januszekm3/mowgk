@@ -21,8 +21,6 @@ public class DataHolder {
 
 	public DataHolder(String filename) {
 		Path file = Paths.get(filename);
-		// vertices = new Vector<>();
-		// faces = new Vector<>();
 		Charset charset = Charset.forName("US-ASCII");
 
 		if (filename.endsWith(".ply")) {
