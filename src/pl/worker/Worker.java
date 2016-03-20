@@ -15,8 +15,8 @@ public class Worker {
 		int flag, i, j, k, l, wierzcholek0, wierzcholek1, element0, element1;
 		Set<Integer> sasiedzi0, sasiedzi1;
 		//DataHolder dataHolder = new DataHolder("resources/ant.ply");
-		//DataHolder dataHolder = new DataHolder("resources/cam.off");
-		DataHolder dataHolder = new DataHolder("resources/elk.off");
+		DataHolder dataHolder = new DataHolder("resources/cam.off");
+		//DataHolder dataHolder = new DataHolder("resources/elk.off");
 		//DataHolder dataHolder = new DataHolder("resources/face-HY.off");
 		//DataHolder dataHolder = new DataHolder("resources/neptune.off");
 		//DataHolder dataHolder = new DataHolder("resources/twirl.off");
@@ -224,28 +224,32 @@ public class Worker {
 			}
 			i++;
 		}
-
-		System.out.println("Element0: " + element0);
-		System.out.println("Element1: " + element1);
-		System.out.println("Samotny wierzcholek0: " + samotnyWierzcholek0);
-		System.out.println("Samotny wierzcholek1: " + samotnyWierzcholek1);
-		System.out.println("Wspolny wierzcholek0: " + wspolnyWierzcholek0);
-		System.out.println("Wspolny wierzcholek0: " + wspolnyWierzcholek1);
-
-		dataHolder.faces[element0][0] = samotnyWierzcholek0;
-		dataHolder.faces[element0][1] = samotnyWierzcholek1;
-		dataHolder.faces[element0][2] = wspolnyWierzcholek0;
-		dataHolder.faces[element1][0] = samotnyWierzcholek0;
-		dataHolder.faces[element1][1] = samotnyWierzcholek1;
-		dataHolder.faces[element1][2] = wspolnyWierzcholek1;
-
-		System.out.println("\nTablica elementow po zamianie krawedzi:");
-		for (j = 0; j < dataHolder.faces.length; j++) {
-			System.out.println(dataHolder.faces[j][0] + " " + dataHolder.faces[j][1] + " " + dataHolder.faces[j][2]);
+		
+		if (element0 != -1 && element1 != -1 && samotnyWierzcholek0 != -1 && samotnyWierzcholek1 != -1 && wspolnyWierzcholek0 != -1 && wspolnyWierzcholek1 != -1) {
+			System.out.println("Element0: " + element0);
+			System.out.println("Element1: " + element1);
+			System.out.println("Samotny wierzcholek0: " + samotnyWierzcholek0);
+			System.out.println("Samotny wierzcholek1: " + samotnyWierzcholek1);
+			System.out.println("Wspolny wierzcholek0: " + wspolnyWierzcholek0);
+			System.out.println("Wspolny wierzcholek0: " + wspolnyWierzcholek1);
+	
+			dataHolder.faces[element0][0] = samotnyWierzcholek0;
+			dataHolder.faces[element0][1] = samotnyWierzcholek1;
+			dataHolder.faces[element0][2] = wspolnyWierzcholek0;
+			dataHolder.faces[element1][0] = samotnyWierzcholek0;
+			dataHolder.faces[element1][1] = samotnyWierzcholek1;
+			dataHolder.faces[element1][2] = wspolnyWierzcholek1;
+	
+			System.out.println("\nTablica elementow po zamianie krawedzi:");
+			for (j = 0; j < dataHolder.faces.length; j++) {
+				System.out.println(dataHolder.faces[j][0] + " " + dataHolder.faces[j][1] + " " + dataHolder.faces[j][2]);
+			}
+			stop = System.nanoTime();
+			System.out.println("Czas wykonania: " + (stop - start));
+		} else {
+			System.out.println("Brak przyleglych trojkatow.");
 		}
-		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
-
+		
 		System.out.println("\n3.1.5.okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
 		flag = 0;

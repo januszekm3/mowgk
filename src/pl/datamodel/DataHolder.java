@@ -87,10 +87,9 @@ public class DataHolder {
 				}
 				for (int i = 0; i < f; i++) {
 					line = reader.readLine();
-					line = line.split("  ")[1];
-					faces[i][0] = Integer.parseInt(line.split("\\s+")[0]);
-					faces[i][1] = Integer.parseInt(line.split("\\s+")[1]);
-					faces[i][2] = Integer.parseInt(line.split("\\s+")[2]);
+					faces[i][0] = Integer.parseInt(line.split("\\s+")[1]);
+					faces[i][1] = Integer.parseInt(line.split("\\s+")[2]);
+					faces[i][2] = Integer.parseInt(line.split("\\s+")[3]);
 				}
 			} catch (IOException x) {
 				System.err.format("IOException: %s%n", x);
