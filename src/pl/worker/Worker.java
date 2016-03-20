@@ -33,8 +33,7 @@ public class Worker {
 			System.out.println(dataHolder.faces[j][0] + " " + dataHolder.faces[j][1] + " " + dataHolder.faces[j][2]);
 		}
 		System.out.println("\n3.1. Tablica wspolrzednych wierzcholkow oraz tzw. tablica polaczen");
-		System.out.println(
-				"\n3.1.1.dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)");
+		System.out.println("\n3.1.1. dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)");
 		start = System.nanoTime();
 		for (i = 0; i < dataHolder.vertices.length; i++) {
 			System.out.print("Wierzcholek nr " + i + " pierwsi sasiedzi: ");
@@ -87,9 +86,9 @@ public class Worker {
 		}
 
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.1.1. Czas wykonania: " + (stop - start));
 
-		System.out.println("\n3.1.2.dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy");
+		System.out.println("\n3.1.2. dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy");
 		start = System.nanoTime();
 		for (i = 0; i < dataHolder.vertices.length; i++) {
 			System.out.print("Wierzcholek nr " + i + " nalezy do elementow: ");
@@ -99,10 +98,9 @@ public class Worker {
 			System.out.println();
 		}
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.1.2. Czas wykonania: " + (stop - start));
 
-		System.out.println(
-				"\n3.1.3.dla kazdego elementu wyznaczenie otoczenia elementow (pierwsza i druga warstwa sasiednich elementow)");
+		System.out.println("\n3.1.3. dla kazdego elementu wyznaczenie otoczenia elementow (pierwsza i druga warstwa sasiednich elementow)");
 		start = System.nanoTime();
 		for (i = 0; i < dataHolder.faces.length; i++) {
 			System.out.print("Element nr " + i + " pierwsi sasiedzi: ");
@@ -154,10 +152,9 @@ public class Worker {
 			System.out.println();
 		}
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.1.3. Czas wykonania: " + (stop - start));
 
-		System.out.println(
-				"\n3.1.4.zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
+		System.out.println("\n3.1.4. zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
 		start = System.nanoTime();
 		int wspolnyWierzcholek0, wspolnyWierzcholek1, samotnyWierzcholek0, samotnyWierzcholek1;
 		wspolnyWierzcholek0 = -1;
@@ -246,12 +243,12 @@ public class Worker {
 				System.out.println(dataHolder.faces[j][0] + " " + dataHolder.faces[j][1] + " " + dataHolder.faces[j][2]);
 			}
 			stop = System.nanoTime();
-			System.out.println("Czas wykonania: " + (stop - start));
+			System.out.println("3.1.4. Czas wykonania: " + (stop - start));
 		} else {
 			System.out.println("Brak przyleglych trojkatow.");
 		}
 
-		System.out.println("\n3.1.5.okreslenie, czy dana siatka posiada brzeg");
+		System.out.println("\n3.1.5. okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
 		flag = 0;
 		i = 0;
@@ -284,11 +281,10 @@ public class Worker {
 		else
 			System.out.println("Siatka nie posiada brzegu");
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.1.5. Czas wykonania: " + (stop - start));
 
-		System.out.println("\n3.2. half edge/winged edge");
-		System.out.println(
-				"\n3.2.1.dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)");
+		System.out.println("\n3.2. half edge");
+		System.out.println("\n3.2.1. dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)");
 		start = System.nanoTime();
 		for (Vertice v : dataHolder.vv) {
 			sasiedzi0 = new HashSet<Integer>();
@@ -318,9 +314,9 @@ public class Worker {
 		}
 
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.2.1. Czas wykonania: " + (stop - start));
 
-		System.out.println("\n3.2.2.dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy");
+		System.out.println("\n3.2.2. dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy");
 		start = System.nanoTime();
 		for (Vertice vv : dataHolder.vv) {
 			System.out.print("Wierzcholek nr " + vv.id + " nalezy do elementow: ");
@@ -330,10 +326,9 @@ public class Worker {
 			System.out.println();
 		}
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.2.2. Czas wykonania: " + (stop - start));
 
-		System.out.println(
-				"\n3.2.3.dla kazdego elementu wyznaczenie otoczenia elementow (pierwsza i druga warstwa sasiednich elementow)");
+		System.out.println("\n3.2.3. dla kazdego elementu wyznaczenie otoczenia elementow (pierwsza i druga warstwa sasiednich elementow)");
 		start = System.nanoTime();
 		for (Face face : dataHolder.ff) {
 			System.out.print("Element nr " + face.id + " pierwsi sasiedzi: ");
@@ -371,10 +366,9 @@ public class Worker {
 			System.out.println();
 		}
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.2.3. Czas wykonania: " + (stop - start));
 
-		System.out.println(
-				"\n3.2.4.zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
+		System.out.println("\n3.2.4. zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
 		start = System.nanoTime();
 		boolean flagens = false;
 		for (Face face : dataHolder.ff) {
@@ -424,9 +418,9 @@ public class Worker {
 				System.out.println(face.z.endpoint + " " + face.x.endpoint + " " + face.y.endpoint);
 		} else System.out.println("Brak przyleglych trojkatow.");
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.2.4. Czas wykonania: " + (stop - start));
 
-		System.out.println("\n3.2.5.okreslenie, czy dana siatka posiada brzeg");
+		System.out.println("\n3.2.5. okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
 		boolean shapeEdge = false;
 		for (HalfEdge edge : dataHolder.hedges) {
@@ -440,6 +434,6 @@ public class Worker {
 		else
 			System.out.println("Siatka nie posiada brzegu");
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: " + (stop - start));
+		System.out.println("3.2.5. Czas wykonania: " + (stop - start));
 	}
 }
