@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import pl.datamodel.DataHolder;
+import pl.datamodel.HalfEdge;
+import pl.datamodel.Vertice;
 
 public class Worker {
 
@@ -254,8 +256,38 @@ public class Worker {
 		System.out.println("\n3.2. „half edge”/„winged edge”");
 		System.out.println("\n3.2.1.dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)");
 		start = System.nanoTime();
+		for (Vertice v : dataHolder.vv) {
+			sasiedzi0 = new HashSet<Integer>();
+			sasiedzi1 = new HashSet<Integer>();
+			System.out.print("Wierzcholek nr " + v.id + " pierwsi sasiedzi: ");
+			for (HalfEdge edge : v.hedges) {
+				sasiedzi0.add(edge.endpoint);
+			}
+			for (HalfEdge edge : dataHolder.hedges) {
+				if (edge.endpoint == v.id) {
+					sasiedzi0.add(edge.previous.endpoint);
+				}
+			}
+			for (Integer k1 : sasiedzi0) {
+				for (HalfEdge edge : dataHolder.vv[k1].hedges) {
+					if (edge.endpoint != v.id) sasiedzi1.add(edge.endpoint);
+				}
+				for (HalfEdge edge : dataHolder.hedges) {
+					if (sasiedzi1.contains(edge.endpoint) && edge.previous.endpoint != v.id) {
+						sasiedzi1.add(edge.previous.endpoint);
+					}
+				}
+				System.out.print(k1 + " ");
+			}
+			System.out.print("drudzy sasiedzi: ");
+			for (Integer k1 : sasiedzi1) {
+				System.out.print(k1 + " ");
+			}
+			System.out.println();
+		}
+
 		stop = System.nanoTime();
-		System.out.println("Czas wykonania: "+(stop-start));
+		System.out.println("Czas wykonania: " + (stop - start));
 		
 		System.out.println("\n3.2.2.dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy");
 		start = System.nanoTime();
