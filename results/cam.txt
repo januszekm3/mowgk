@@ -1,0 +1,70 @@
+Tablica wierzcholkow:
+0.0 0.0 0.0
+-0.10000000149011612 0.0 0.5
+0.10000000149011612 0.0 0.5
+0.0 -0.10000000149011612 0.5
+0.0 0.10000000149011612 0.5
+
+Tablica elementow:
+0 1 2
+0 3 4
+
+3.1. Tablica wspolrzednych wierzcholkow oraz tzw. tablica polaczen
+
+3.1.1. dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)
+Wierzcholek nr 0 pierwsi sasiedzi: 1 2 3 4 drudzy sasiedzi: 1 2 3 4 
+Wierzcholek nr 1 pierwsi sasiedzi: 0 2 drudzy sasiedzi: 0 2 3 4 
+Wierzcholek nr 2 pierwsi sasiedzi: 0 1 drudzy sasiedzi: 0 1 3 4 
+Wierzcholek nr 3 pierwsi sasiedzi: 0 4 drudzy sasiedzi: 0 1 2 4 
+Wierzcholek nr 4 pierwsi sasiedzi: 0 3 drudzy sasiedzi: 0 1 2 3 
+3.1.1. Czas wykonania: 420564
+
+3.1.2. dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy
+Wierzcholek nr 0 nalezy do elementow: 0 1 
+Wierzcholek nr 1 nalezy do elementow: 0 
+Wierzcholek nr 2 nalezy do elementow: 0 
+Wierzcholek nr 3 nalezy do elementow: 1 
+Wierzcholek nr 4 nalezy do elementow: 1 
+3.1.2. Czas wykonania: 96404
+
+3.1.3. dla kazdego elementu wyznaczenie otoczenia elementow (pierwsza i druga warstwa sasiednich elementow)
+Element nr 0 pierwsi sasiedzi: drudzy sasiedzi: 
+Element nr 1 pierwsi sasiedzi: drudzy sasiedzi: 
+3.1.3. Czas wykonania: 38260
+
+3.1.4. zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych
+Brak przyleglych trojkatow.
+
+3.1.5. okreslenie, czy dana siatka posiada brzeg
+Siatka posiada brzeg
+3.1.5. Czas wykonania: 8737
+
+3.2. half edge
+
+3.2.1. dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)
+Wierzcholek nr 0 pierwsi sasiedzi: 1 2 3 4 drudzy sasiedzi: 1 2 3 4 
+Wierzcholek nr 1 pierwsi sasiedzi: 0 2 drudzy sasiedzi: 0 2 3 4 
+Wierzcholek nr 2 pierwsi sasiedzi: 0 1 drudzy sasiedzi: 0 1 3 4 
+Wierzcholek nr 3 pierwsi sasiedzi: 0 4 drudzy sasiedzi: 0 1 2 4 
+Wierzcholek nr 4 pierwsi sasiedzi: 0 3 drudzy sasiedzi: 0 1 2 3 
+3.2.1. Czas wykonania: 412731
+
+3.2.2. dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy
+Wierzcholek nr 0 nalezy do elementow: 0 1 
+Wierzcholek nr 1 nalezy do elementow: 0 
+Wierzcholek nr 2 nalezy do elementow: 0 
+Wierzcholek nr 3 nalezy do elementow: 1 
+Wierzcholek nr 4 nalezy do elementow: 1 
+3.2.2. Czas wykonania: 88572
+
+3.2.3. dla kazdego elementu wyznaczenie otoczenia elementow (pierwsza i druga warstwa sasiednich elementow)
+Element nr 0 pierwsi sasiedzi: drudzy sasiedzi: 
+Element nr 1 pierwsi sasiedzi: drudzy sasiedzi: 
+3.2.3. Czas wykonania: 30428
+
+3.2.4. zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych
+Brak przyleglych trojkatow.
+
+3.2.5. okreslenie, czy dana siatka posiada brzeg
+Siatka posiada brzeg
+3.2.5. Czas wykonania: 9339

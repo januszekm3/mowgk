@@ -416,10 +416,10 @@ public class Worker {
 			System.out.println("\nTablica elementow po zamianie krawedzi:");
 			for (Face face : dataHolder.ff)
 				System.out.println(face.z.endpoint + " " + face.x.endpoint + " " + face.y.endpoint);
+			stop = System.nanoTime();
+			System.out.println("3.2.4. Czas wykonania: " + (stop - start));
 		} else System.out.println("Brak przyleglych trojkatow.");
-		stop = System.nanoTime();
-		System.out.println("3.2.4. Czas wykonania: " + (stop - start));
-
+		
 		System.out.println("\n3.2.5. okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
 		boolean shapeEdge = false;
