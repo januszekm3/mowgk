@@ -14,8 +14,13 @@ public class Worker {
 		long start, stop;
 		int flag, i, j, k, l, wierzcholek0, wierzcholek1, element0, element1;
 		Set<Integer> sasiedzi0, sasiedzi1;
-		DataHolder dataHolder = new DataHolder("resources/ant.ply");
-		// DataHolder dataHolder = new DataHolder("resources/cam.off");
+		//DataHolder dataHolder = new DataHolder("resources/ant.ply");
+		//DataHolder dataHolder = new DataHolder("resources/cam.off");
+		DataHolder dataHolder = new DataHolder("resources/elk.off");
+		//DataHolder dataHolder = new DataHolder("resources/face-HY.off");
+		//DataHolder dataHolder = new DataHolder("resources/neptune.off");
+		//DataHolder dataHolder = new DataHolder("resources/twirl.off");
+		//DataHolder dataHolder = new DataHolder("resources/vase-lion.off");
 
 		System.out.println("Tablica wierzcholkow:");
 		for (i = 0; i < dataHolder.vertices.length; i++) {
