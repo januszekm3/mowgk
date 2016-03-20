@@ -13,6 +13,7 @@ public class DataHolder {
 	public int[][] faces;
 	public Vector<HalfEdge> hedges = new Vector<>();
 	public Vertice[] vv;
+	public Face[] ff;
 
 	private boolean isNumeric(String str) {
 		for (char c : str.toCharArray()) {
@@ -42,6 +43,7 @@ public class DataHolder {
 				vertices = new double[v][3];
 				vv = new Vertice[v];
 				faces = new int[f][3];
+				ff = new Face[f];
 				for (int i = 0; i < v; i++) {
 					vertices[i][0] = Float.parseFloat(line.split("\\s+")[0]);
 					vertices[i][1] = Float.parseFloat(line.split("\\s+")[1]);
@@ -69,6 +71,7 @@ public class DataHolder {
 				vertices = new double[v][3];
 				vv = new Vertice[v];
 				faces = new int[f][3];
+				ff = new Face[f];
 				for (int i = 0; i < v; i++) {
 					line = reader.readLine();
 					if (line.startsWith(" ")) {
@@ -95,31 +98,44 @@ public class DataHolder {
 		}
 
 		for (int i = 0; i < faces.length; i++) {
-			Face face = new Face(new HalfEdge(), new HalfEdge(), new HalfEdge());
-			face.x.face = face;
-			face.y.face = face;
-			face.z.face = face;
-			face.x.next = face.y;
-			face.y.next = face.z;
-			face.z.next = face.x;
-			face.x.previous = face.z;
-			face.y.previous = face.x;
-			face.z.previous = face.y;
-			face.x.endpoint = faces[i][1];
-			face.y.endpoint = faces[i][2];
-			face.z.endpoint = faces[i][0];
-			hedges.addElement(face.x);
-			hedges.addElement(face.y);
-			hedges.addElement(face.z);
-			vv[faces[i][0]].hedges.addElement(face.x);
-			vv[faces[i][1]].hedges.addElement(face.y);
-			vv[faces[i][2]].hedges.addElement(face.z);
+			ff[i] = new Face(new HalfEdge(), new HalfEdge(), new HalfEdge());
+			ff[i].id = i;
+			ff[i].x.face = ff[i];
+			ff[i].y.face = ff[i];
+			ff[i].z.face = ff[i];
+			ff[i].x.next = ff[i].y;
+			ff[i].y.next = ff[i].z;
+			ff[i].z.next = ff[i].x;
+			ff[i].x.previous = ff[i].z;
+			ff[i].y.previous = ff[i].x;
+			ff[i].z.previous = ff[i].y;
+			ff[i].x.endpoint = faces[i][1];
+			ff[i].y.endpoint = faces[i][2];
+			ff[i].z.endpoint = faces[i][0];
+			hedges.addElement(ff[i].x);
+			hedges.addElement(ff[i].y);
+			hedges.addElement(ff[i].z);
+			System.out.println(ff[i].id);
+			System.out.println(faces[i][0]+" "+faces[i][1]+" "+faces[i][2]);
+			vv[faces[i][0]].hedges.addElement(ff[i].x);
+			vv[faces[i][1]].hedges.addElement(ff[i].y);
+			vv[faces[i][2]].hedges.addElement(ff[i].z);
 		}
 		for (HalfEdge hedge1 : hedges) {
 			for (HalfEdge hedge2 : hedges) {
 				if (hedge1.previous.endpoint == hedge2.endpoint && hedge2.previous.endpoint == hedge1.endpoint)
 					hedge1.opposite = hedge2;
 			}
+		}
+		
+		for (Vertice ver : vv) {
+			System.out.print(ver.id+": ");
+			for (HalfEdge h : ver.hedges) {
+				System.out.print(h.face.id);
+				
+			}
+			System.out.println();
+//			" : "+ vv[face.x.endpoint].id + " " + vv[face.y.endpoint].id + " " + vv[face.z.endpoint].id);
 		}
 
 	}

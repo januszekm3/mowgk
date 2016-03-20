@@ -291,6 +291,13 @@ public class Worker {
 		
 		System.out.println("\n3.2.2.dla kazdego wierzcholka znalezienie elementow, do ktorych nalezy");
 		start = System.nanoTime();
+		for (Vertice vv : dataHolder.vv) {
+			System.out.print("Wierzcholek nr " + vv.id + " nalezy do elementow: ");
+			for (HalfEdge edge : vv.hedges) {
+				System.out.print(edge.face.id + " ");
+			}
+			System.out.println();
+		}
 		stop = System.nanoTime();
 		System.out.println("Czas wykonania: "+(stop-start));
 		

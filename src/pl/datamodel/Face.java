@@ -1,6 +1,7 @@
 package pl.datamodel;
 
 public class Face {
+	public int id;
 	public HalfEdge x;
 	public HalfEdge y;
 	public HalfEdge z;
