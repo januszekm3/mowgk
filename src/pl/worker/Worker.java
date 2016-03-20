@@ -110,17 +110,14 @@ public class Worker {
 					if ((i != k) && // czy nie dodajemy tego samego elementu
 									// (przechodzimy drugi raz po tej samej
 									// tablicy)
-							(((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][1])
-									|| (wierzcholek0 == dataHolder.faces[k][1]
-											&& wierzcholek1 == dataHolder.faces[k][0]))
-									|| ((wierzcholek0 == dataHolder.faces[k][1]
-											&& wierzcholek1 == dataHolder.faces[k][2])
-											|| (wierzcholek0 == dataHolder.faces[k][2]
-													&& wierzcholek1 == dataHolder.faces[k][1]))
-									|| ((wierzcholek0 == dataHolder.faces[k][0]
-											&& wierzcholek1 == dataHolder.faces[k][2])
-											|| (wierzcholek0 == dataHolder.faces[k][2]
-													&& wierzcholek1 == dataHolder.faces[k][0]))))
+					(((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][1])
+							|| (wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][0]))
+							|| ((wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][2])
+									|| (wierzcholek0 == dataHolder.faces[k][2]
+											&& wierzcholek1 == dataHolder.faces[k][1]))
+							|| ((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][2])
+									|| (wierzcholek0 == dataHolder.faces[k][2]
+											&& wierzcholek1 == dataHolder.faces[k][0]))))
 						sasiedzi0.add(k);
 				}
 			}
@@ -373,11 +370,64 @@ public class Worker {
 		System.out.println(
 				"\n3.2.4.zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
 		start = System.nanoTime();
+		for (Face face : dataHolder.ff) {
+			if (face.x.opposite != null) {
+				int tmp1 = face.x.opposite.next.endpoint;
+				int tmp2 = face.x.endpoint;
+				int tmp3 = face.x.next.endpoint;
+				face.x.endpoint = face.x.next.endpoint;
+				face.y.endpoint = face.x.opposite.endpoint;
+				face.z.endpoint = face.x.opposite.next.endpoint;
+				face.x.opposite.endpoint = tmp1;
+				face.x.opposite.next.endpoint = tmp2;
+				face.x.opposite.next.next.endpoint = tmp3;
+				break;
+			}
+			if (face.y.opposite != null) {
+				int tmp1 = face.y.opposite.next.endpoint;
+				int tmp2 = face.y.endpoint;
+				int tmp3 = face.y.next.endpoint;
+				face.x.endpoint = face.y.opposite.next.endpoint;
+				face.y.endpoint = face.y.next.endpoint;
+				face.z.endpoint = face.y.opposite.endpoint;
+				face.y.opposite.endpoint = tmp1;
+				face.y.opposite.next.endpoint = tmp2;
+				face.y.opposite.next.next.endpoint = tmp3;
+				break;
+			}
+			if (face.z.opposite != null) {
+				int tmp1 = face.z.opposite.next.endpoint;
+				int tmp2 = face.z.endpoint;
+				int tmp3 = face.z.next.endpoint;
+				face.x.endpoint = face.z.opposite.endpoint;
+				face.y.endpoint = face.z.opposite.next.endpoint;
+				face.z.endpoint = face.z.next.endpoint;
+				face.z.opposite.endpoint = tmp1;
+				face.z.opposite.next.endpoint = tmp2;
+				face.z.opposite.next.next.endpoint = tmp3;
+				break;
+			}
+		}
+		System.out.println("\nTablica elementow po zamianie krawedzi:");
+		for (Face face : dataHolder.ff) {
+			System.out.println(face.z.endpoint + " " + face.x.endpoint + " " + face.y.endpoint);
+		}
 		stop = System.nanoTime();
 		System.out.println("Czas wykonania: " + (stop - start));
 
 		System.out.println("\n3.2.5.okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
+		boolean shapeEdge = false;
+		for (HalfEdge edge : dataHolder.hedges) {
+			if (edge.opposite == null) {
+				shapeEdge = true;
+				break;
+			}
+		}
+		if (shapeEdge)
+			System.out.println("Siatka posiada brzeg");
+		else
+			System.out.println("Siatka nie posiada brzegu");
 		stop = System.nanoTime();
 		System.out.println("Czas wykonania: " + (stop - start));
 	}
