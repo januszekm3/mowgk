@@ -115,8 +115,6 @@ public class DataHolder {
 			hedges.addElement(ff[i].x);
 			hedges.addElement(ff[i].y);
 			hedges.addElement(ff[i].z);
-			System.out.println(ff[i].id);
-			System.out.println(faces[i][0]+" "+faces[i][1]+" "+faces[i][2]);
 			vv[faces[i][0]].hedges.addElement(ff[i].x);
 			vv[faces[i][1]].hedges.addElement(ff[i].y);
 			vv[faces[i][2]].hedges.addElement(ff[i].z);
@@ -127,17 +125,6 @@ public class DataHolder {
 					hedge1.opposite = hedge2;
 			}
 		}
-		
-		for (Vertice ver : vv) {
-			System.out.print(ver.id+": ");
-			for (HalfEdge h : ver.hedges) {
-				System.out.print(h.face.id);
-				
-			}
-			System.out.println();
-//			" : "+ vv[face.x.endpoint].id + " " + vv[face.y.endpoint].id + " " + vv[face.z.endpoint].id);
-		}
-
 	}
 
 }
