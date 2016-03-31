@@ -106,43 +106,35 @@ public class Worker {
 			System.out.print("Element nr " + i + " pierwsi sasiedzi: ");
 			sasiedzi0 = new HashSet<Integer>();
 			sasiedzi1 = new HashSet<Integer>();
-			for (j = 0; j < 3; j++) { // 3 krawedzie w obrebie elementu
-				wierzcholek0 = dataHolder.faces[i][j];
-				wierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-				for (k = 0; k < dataHolder.faces.length; k++) {
-					if ((i != k) && // czy nie dodajemy tego samego elementu
-									// (przechodzimy drugi raz po tej samej
-									// tablicy)
-					(((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][1])
-							|| (wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][0]))
-							|| ((wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][2])
-									|| (wierzcholek0 == dataHolder.faces[k][2]
-											&& wierzcholek1 == dataHolder.faces[k][1]))
-							|| ((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][2])
-									|| (wierzcholek0 == dataHolder.faces[k][2]
-											&& wierzcholek1 == dataHolder.faces[k][0]))))
-						sasiedzi0.add(k);
-				}
+			for (j = 0; j < dataHolder.faces.length; j++) {
+				if ((i != j) // czy nie dodajemy tego samego elementu
+						// (przechodzimy drugi raz po tej samej tablicy
+						&& (dataHolder.faces[i][0] == dataHolder.faces[j][0]
+						|| dataHolder.faces[i][0] == dataHolder.faces[j][1]
+						|| dataHolder.faces[i][0] == dataHolder.faces[j][2]						
+						|| dataHolder.faces[i][1] == dataHolder.faces[j][0]
+						|| dataHolder.faces[i][1] == dataHolder.faces[j][1]
+						|| dataHolder.faces[i][1] == dataHolder.faces[j][2]
+						|| dataHolder.faces[i][2] == dataHolder.faces[j][0]
+						|| dataHolder.faces[i][2] == dataHolder.faces[j][1]
+						|| dataHolder.faces[i][2] == dataHolder.faces[j][2]))
+					sasiedzi0.add(j);
 			}
 			for (Integer a : sasiedzi0) {
 				System.out.print(a + " ");
-				for (j = 0; j < 3; j++) { // 3 krawedzie w obrebie elementu
-					wierzcholek0 = dataHolder.faces[a][j];
-					wierzcholek1 = dataHolder.faces[a][(j + 1) % 3];
-					for (l = 0; l < dataHolder.faces.length; l++) {
-						// czy nie dodajemy tego samego elementu jako drugiego
-						// sasiada
-						if ((l != i) && (l != a) && (((wierzcholek0 == dataHolder.faces[l][0]
-								&& wierzcholek1 == dataHolder.faces[l][1])
-								|| (wierzcholek0 == dataHolder.faces[l][1] && wierzcholek1 == dataHolder.faces[l][0]))
-								|| ((wierzcholek0 == dataHolder.faces[l][1] && wierzcholek1 == dataHolder.faces[l][2])
-										|| (wierzcholek0 == dataHolder.faces[l][2]
-												&& wierzcholek1 == dataHolder.faces[l][1]))
-								|| ((wierzcholek0 == dataHolder.faces[l][0] && wierzcholek1 == dataHolder.faces[l][2])
-										|| (wierzcholek0 == dataHolder.faces[l][2]
-												&& wierzcholek1 == dataHolder.faces[l][0]))))
-							sasiedzi1.add(l);
-					}
+				for (j = 0; j < dataHolder.faces.length; j++) {
+					if ((a != j) // czy nie dodajemy tego samego elementu
+							// (przechodzimy drugi raz po tej samej tablicy
+							&& (dataHolder.faces[a][0] == dataHolder.faces[j][0]
+							|| dataHolder.faces[a][0] == dataHolder.faces[j][1]
+							|| dataHolder.faces[a][0] == dataHolder.faces[j][2]						
+							|| dataHolder.faces[a][1] == dataHolder.faces[j][0]
+							|| dataHolder.faces[a][1] == dataHolder.faces[j][1]
+							|| dataHolder.faces[a][1] == dataHolder.faces[j][2]
+							|| dataHolder.faces[a][2] == dataHolder.faces[j][0]
+							|| dataHolder.faces[a][2] == dataHolder.faces[j][1]
+							|| dataHolder.faces[a][2] == dataHolder.faces[j][2]))
+						sasiedzi1.add(j);
 				}
 			}
 			System.out.print("drudzy sasiedzi: ");
