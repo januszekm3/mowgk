@@ -14,19 +14,19 @@ public class DataHolder {
 	public Vector<HalfEdge> hedges = new Vector<>();
 	public Vertice[] vv;
 	public Face[] ff;
-
-	private boolean isNumeric(String str) {
-		for (char c : str.toCharArray()) {
-			if (!Character.isDigit(c))
-				return false;
+	
+	public static boolean isNumeric(String str) {
+		try {
+			Double.parseDouble(str);
+		} 
+		catch(NumberFormatException nfe) {
+			return false;
 		}
 		return true;
 	}
-
+	
 	public DataHolder(String filename) {
 		Path file = Paths.get(filename);
-		// vertices = new Vector<>();
-		// faces = new Vector<>();
 		Charset charset = Charset.forName("US-ASCII");
 
 		if (filename.endsWith(".ply")) {
@@ -125,5 +125,4 @@ public class DataHolder {
 			}
 		}
 	}
-
 }

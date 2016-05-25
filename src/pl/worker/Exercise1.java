@@ -8,11 +8,11 @@ import pl.datamodel.Face;
 import pl.datamodel.HalfEdge;
 import pl.datamodel.Vertice;
 
-public class Worker {
+public class Exercise1 {
 
 	public static void main(String[] args) {
 		long start, stop;
-		int flag, i, j, k, l, wierzcholek0, wierzcholek1, element0, element1;
+		int flag, i, j, k, wierzcholek0, wierzcholek1, element0, element1;
 		Set<Integer> sasiedzi0, sasiedzi1;
 		DataHolder dataHolder = new DataHolder("resources/ant.ply");
 		// DataHolder dataHolder = new DataHolder("resources/cam.off");
