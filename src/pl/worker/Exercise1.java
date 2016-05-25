@@ -11,9 +11,10 @@ import pl.datamodel.Vertice;
 public class Exercise1 {
 
 	public static void main(String[] args) {
+		boolean flag;
+		int i, j, k, component0, component1, vertex0, vertex1, mutualVertex0, mutualVertex1, aloneVertex0, aloneVertex1;
 		long start, stop;
-		int flag, i, j, k, wierzcholek0, wierzcholek1, element0, element1;
-		Set<Integer> sasiedzi0, sasiedzi1;
+		Set<Integer> neighbors0, neighbors1;
 		DataHolder dataHolder = new DataHolder("resources/ant.ply");
 		// DataHolder dataHolder = new DataHolder("resources/cam.off");
 		// DataHolder dataHolder = new DataHolder("resources/elk.off");
@@ -24,8 +25,7 @@ public class Exercise1 {
 
 		System.out.println("Tablica wierzcholkow:");
 		for (i = 0; i < dataHolder.vertices.length; i++) {
-			System.out.println(
-					dataHolder.vertices[i][0] + " " + dataHolder.vertices[i][1] + " " + dataHolder.vertices[i][2]);
+			System.out.println(dataHolder.vertices[i][0] + " " + dataHolder.vertices[i][1] + " " + dataHolder.vertices[i][2]);
 		}
 
 		System.out.println("\nTablica elementow:");
@@ -37,49 +37,49 @@ public class Exercise1 {
 		start = System.nanoTime();
 		for (i = 0; i < dataHolder.vertices.length; i++) {
 			System.out.print("Wierzcholek nr " + i + " pierwsi sasiedzi: ");
-			sasiedzi0 = new HashSet<Integer>();
-			sasiedzi1 = new HashSet<Integer>();
+			neighbors0 = new HashSet<Integer>();
+			neighbors1 = new HashSet<Integer>();
 			for (j = 0; j < dataHolder.faces.length; j++) {
 				if (dataHolder.faces[j][0] == i) {
-					sasiedzi0.add(dataHolder.faces[j][1]); // dodawanie
-					sasiedzi0.add(dataHolder.faces[j][2]); // obu sasiadow
+					neighbors0.add(dataHolder.faces[j][1]); // dodawanie
+					neighbors0.add(dataHolder.faces[j][2]); // obu sasiadow
 				}
 				if (dataHolder.faces[j][1] == i) {
-					sasiedzi0.add(dataHolder.faces[j][0]);
-					sasiedzi0.add(dataHolder.faces[j][2]);
+					neighbors0.add(dataHolder.faces[j][0]);
+					neighbors0.add(dataHolder.faces[j][2]);
 				}
 				if (dataHolder.faces[j][2] == i) {
-					sasiedzi0.add(dataHolder.faces[j][0]);
-					sasiedzi0.add(dataHolder.faces[j][1]);
+					neighbors0.add(dataHolder.faces[j][0]);
+					neighbors0.add(dataHolder.faces[j][1]);
 				}
 			}
-			for (Integer a : sasiedzi0) {
+			for (Integer a : neighbors0) {
 				System.out.print(a + " ");
 				for (j = 0; j < dataHolder.faces.length; j++) {
 					if (dataHolder.faces[j][0] == a) {
 						// czy nie dodajemy tego samego wierzcholka jako
 						// drugiego sasiada
 						if (dataHolder.faces[j][1] != i)
-							sasiedzi1.add(dataHolder.faces[j][1]);
+							neighbors1.add(dataHolder.faces[j][1]);
 						if (dataHolder.faces[j][2] != i)
-							sasiedzi1.add(dataHolder.faces[j][2]);
+							neighbors1.add(dataHolder.faces[j][2]);
 					}
 					if (dataHolder.faces[j][1] == a) {
 						if (dataHolder.faces[j][0] != i)
-							sasiedzi1.add(dataHolder.faces[j][0]);
+							neighbors1.add(dataHolder.faces[j][0]);
 						if (dataHolder.faces[j][2] != i)
-							sasiedzi1.add(dataHolder.faces[j][2]);
+							neighbors1.add(dataHolder.faces[j][2]);
 					}
 					if (dataHolder.faces[j][2] == a) {
 						if (dataHolder.faces[j][0] != i)
-							sasiedzi1.add(dataHolder.faces[j][0]);
+							neighbors1.add(dataHolder.faces[j][0]);
 						if (dataHolder.faces[j][1] != i)
-							sasiedzi1.add(dataHolder.faces[j][1]);
+							neighbors1.add(dataHolder.faces[j][1]);
 					}
 				}
 			}
 			System.out.print("drudzy sasiedzi: ");
-			for (Integer a : sasiedzi1) {
+			for (Integer a : neighbors1) {
 				System.out.print(a + " ");
 			}
 			System.out.println();
@@ -104,8 +104,8 @@ public class Exercise1 {
 		start = System.nanoTime();
 		for (i = 0; i < dataHolder.faces.length; i++) {
 			System.out.print("Element nr " + i + " pierwsi sasiedzi: ");
-			sasiedzi0 = new HashSet<Integer>();
-			sasiedzi1 = new HashSet<Integer>();
+			neighbors0 = new HashSet<Integer>();
+			neighbors1 = new HashSet<Integer>();
 			for (j = 0; j < dataHolder.faces.length; j++) {
 				if ((i != j) // czy nie dodajemy tego samego elementu
 						// (przechodzimy drugi raz po tej samej tablicy
@@ -118,9 +118,9 @@ public class Exercise1 {
 						|| dataHolder.faces[i][2] == dataHolder.faces[j][0]
 						|| dataHolder.faces[i][2] == dataHolder.faces[j][1]
 						|| dataHolder.faces[i][2] == dataHolder.faces[j][2]))
-					sasiedzi0.add(j);
+					neighbors0.add(j);
 			}
-			for (Integer a : sasiedzi0) {
+			for (Integer a : neighbors0) {
 				System.out.print(a + " ");
 				for (j = 0; j < dataHolder.faces.length; j++) {
 					if ((a != j) // czy nie dodajemy tego samego elementu
@@ -134,11 +134,11 @@ public class Exercise1 {
 							|| dataHolder.faces[a][2] == dataHolder.faces[j][0]
 							|| dataHolder.faces[a][2] == dataHolder.faces[j][1]
 							|| dataHolder.faces[a][2] == dataHolder.faces[j][2]))
-						sasiedzi1.add(j);
+						neighbors1.add(j);
 				}
 			}
 			System.out.print("drudzy sasiedzi: ");
-			for (Integer a : sasiedzi1) {
+			for (Integer a : neighbors1) {
 				System.out.print(a + " ");
 			}
 			System.out.println();
@@ -148,64 +148,63 @@ public class Exercise1 {
 
 		System.out.println("\n3.1.4. zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
 		start = System.nanoTime();
-		int wspolnyWierzcholek0, wspolnyWierzcholek1, samotnyWierzcholek0, samotnyWierzcholek1;
-		wspolnyWierzcholek0 = -1;
-		wspolnyWierzcholek1 = -1;
-		element0 = -1;
-		element1 = -1;
-		samotnyWierzcholek0 = -1;
-		samotnyWierzcholek1 = -1;
+		mutualVertex0 = -1;
+		mutualVertex1 = -1;
+		component0 = -1;
+		component1 = -1;
+		aloneVertex0 = -1;
+		aloneVertex1 = -1;
 		i = 0;
-		while (i < dataHolder.faces.length && element0 == -1) {
+		while (i < dataHolder.faces.length && component0 == -1) {
 			j = 0;
-			while (j < 3 && element0 == -1) { // 3 krawedzie w obrebie elementu
-				wierzcholek0 = dataHolder.faces[i][j];
-				wierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
+			while (j < 3 && component0 == -1) { // 3 krawedzie w obrebie elementu
+				vertex0 = dataHolder.faces[i][j];
+				vertex1 = dataHolder.faces[i][(j + 1) % 3];
 				k = 0;
-				while (k < dataHolder.faces.length && element0 == -1) {
+				while (k < dataHolder.faces.length && component0 == -1) {
 					if (i != k)
-						if (wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][1]) {
-							element0 = i;
-							element1 = k;
-							wspolnyWierzcholek0 = dataHolder.faces[i][j];
-							wspolnyWierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-							samotnyWierzcholek0 = dataHolder.faces[i][(j + 2) % 3];
-							samotnyWierzcholek1 = dataHolder.faces[k][2];
-						} else if (wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][0]) {
-							element0 = i;
-							element1 = k;
-							wspolnyWierzcholek0 = dataHolder.faces[i][j];
-							wspolnyWierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-							samotnyWierzcholek0 = dataHolder.faces[i][(j + 2) % 3];
-							samotnyWierzcholek1 = dataHolder.faces[k][2];
-						} else if (wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][2]) {
-							element0 = i;
-							element1 = k;
-							wspolnyWierzcholek0 = dataHolder.faces[i][j];
-							wspolnyWierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-							samotnyWierzcholek0 = dataHolder.faces[i][(j + 2) % 3];
-							samotnyWierzcholek1 = dataHolder.faces[k][0];
-						} else if (wierzcholek0 == dataHolder.faces[k][2] && wierzcholek1 == dataHolder.faces[k][1]) {
-							element0 = i;
-							element1 = k;
-							wspolnyWierzcholek0 = dataHolder.faces[i][j];
-							wspolnyWierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-							samotnyWierzcholek0 = dataHolder.faces[i][(j + 2) % 3];
-							samotnyWierzcholek1 = dataHolder.faces[k][0];
-						} else if (wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][2]) {
-							element0 = i;
-							element1 = k;
-							wspolnyWierzcholek0 = dataHolder.faces[i][j];
-							wspolnyWierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-							samotnyWierzcholek0 = dataHolder.faces[i][(j + 2) % 3];
-							samotnyWierzcholek1 = dataHolder.faces[k][1];
-						} else if (wierzcholek0 == dataHolder.faces[k][2] && wierzcholek1 == dataHolder.faces[k][0]) {
-							element0 = i;
-							element1 = k;
-							wspolnyWierzcholek0 = dataHolder.faces[i][j];
-							wspolnyWierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-							samotnyWierzcholek0 = dataHolder.faces[i][(j + 2) % 3];
-							samotnyWierzcholek1 = dataHolder.faces[k][1];
+						if (vertex0 == dataHolder.faces[k][0] && vertex1 == dataHolder.faces[k][1]) {
+							component0 = i;
+							component1 = k;
+							mutualVertex0 = dataHolder.faces[i][j];
+							mutualVertex1 = dataHolder.faces[i][(j + 1) % 3];
+							aloneVertex0 = dataHolder.faces[i][(j + 2) % 3];
+							aloneVertex1 = dataHolder.faces[k][2];
+						} else if (vertex0 == dataHolder.faces[k][1] && vertex1 == dataHolder.faces[k][0]) {
+							component0 = i;
+							component1 = k;
+							mutualVertex0 = dataHolder.faces[i][j];
+							mutualVertex1 = dataHolder.faces[i][(j + 1) % 3];
+							aloneVertex0 = dataHolder.faces[i][(j + 2) % 3];
+							aloneVertex1 = dataHolder.faces[k][2];
+						} else if (vertex0 == dataHolder.faces[k][1] && vertex1 == dataHolder.faces[k][2]) {
+							component0 = i;
+							component1 = k;
+							mutualVertex0 = dataHolder.faces[i][j];
+							mutualVertex1 = dataHolder.faces[i][(j + 1) % 3];
+							aloneVertex0 = dataHolder.faces[i][(j + 2) % 3];
+							aloneVertex1 = dataHolder.faces[k][0];
+						} else if (vertex0 == dataHolder.faces[k][2] && vertex1 == dataHolder.faces[k][1]) {
+							component0 = i;
+							component1 = k;
+							mutualVertex0 = dataHolder.faces[i][j];
+							mutualVertex1 = dataHolder.faces[i][(j + 1) % 3];
+							aloneVertex0 = dataHolder.faces[i][(j + 2) % 3];
+							aloneVertex1 = dataHolder.faces[k][0];
+						} else if (vertex0 == dataHolder.faces[k][0] && vertex1 == dataHolder.faces[k][2]) {
+							component0 = i;
+							component1 = k;
+							mutualVertex0 = dataHolder.faces[i][j];
+							mutualVertex1 = dataHolder.faces[i][(j + 1) % 3];
+							aloneVertex0 = dataHolder.faces[i][(j + 2) % 3];
+							aloneVertex1 = dataHolder.faces[k][1];
+						} else if (vertex0 == dataHolder.faces[k][2] && vertex1 == dataHolder.faces[k][0]) {
+							component0 = i;
+							component1 = k;
+							mutualVertex0 = dataHolder.faces[i][j];
+							mutualVertex1 = dataHolder.faces[i][(j + 1) % 3];
+							aloneVertex0 = dataHolder.faces[i][(j + 2) % 3];
+							aloneVertex1 = dataHolder.faces[k][1];
 						}
 					k++;
 				}
@@ -214,21 +213,21 @@ public class Exercise1 {
 			i++;
 		}
 
-		if (element0 != -1 && element1 != -1 && samotnyWierzcholek0 != -1 && samotnyWierzcholek1 != -1
-				&& wspolnyWierzcholek0 != -1 && wspolnyWierzcholek1 != -1) {
-			System.out.println("Element0: " + element0);
-			System.out.println("Element1: " + element1);
-			System.out.println("Samotny wierzcholek0: " + samotnyWierzcholek0);
-			System.out.println("Samotny wierzcholek1: " + samotnyWierzcholek1);
-			System.out.println("Wspolny wierzcholek0: " + wspolnyWierzcholek0);
-			System.out.println("Wspolny wierzcholek0: " + wspolnyWierzcholek1);
+		if (component0 != -1 && component1 != -1 && aloneVertex0 != -1 && aloneVertex1 != -1
+				&& mutualVertex0 != -1 && mutualVertex1 != -1) {
+			System.out.println("Element0: " + component0);
+			System.out.println("Element1: " + component1);
+			System.out.println("Samotny wierzcholek0: " + aloneVertex0);
+			System.out.println("Samotny wierzcholek1: " + aloneVertex1);
+			System.out.println("Wspolny wierzcholek0: " + mutualVertex0);
+			System.out.println("Wspolny wierzcholek0: " + mutualVertex1);
 
-			dataHolder.faces[element0][0] = samotnyWierzcholek0;
-			dataHolder.faces[element0][1] = samotnyWierzcholek1;
-			dataHolder.faces[element0][2] = wspolnyWierzcholek0;
-			dataHolder.faces[element1][0] = samotnyWierzcholek0;
-			dataHolder.faces[element1][1] = samotnyWierzcholek1;
-			dataHolder.faces[element1][2] = wspolnyWierzcholek1;
+			dataHolder.faces[component0][0] = aloneVertex0;
+			dataHolder.faces[component0][1] = aloneVertex1;
+			dataHolder.faces[component0][2] = mutualVertex0;
+			dataHolder.faces[component1][0] = aloneVertex0;
+			dataHolder.faces[component1][1] = aloneVertex1;
+			dataHolder.faces[component1][2] = mutualVertex1;
 
 			System.out.println("\nTablica elementow po zamianie krawedzi:");
 			for (j = 0; j < dataHolder.faces.length; j++) {
@@ -242,25 +241,25 @@ public class Exercise1 {
 
 		System.out.println("\n3.1.5. okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
-		flag = 0;
+		flag = false;
 		i = 0;
 		j = 0;
 		k = 0;
-		while (i < dataHolder.faces.length && flag == 0) {
-			while (j < 3 && flag == 0) { // 3 krawedzie w obrebie elementu
-				wierzcholek0 = dataHolder.faces[i][j];
-				wierzcholek1 = dataHolder.faces[i][(j + 1) % 3];
-				while (k < dataHolder.faces.length && flag == 0) {
+		while (i < dataHolder.faces.length && !flag) {
+			while (j < 3 && !flag) { // 3 krawedzie w obrebie elementu
+				vertex0 = dataHolder.faces[i][j];
+				vertex1 = dataHolder.faces[i][(j + 1) % 3];
+				while (k < dataHolder.faces.length && !flag) {
 					if (i != k) // czy nie porownujemy z tym samym elementem
-						if (!(((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][1])
-								|| (wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][0]))
-								|| ((wierzcholek0 == dataHolder.faces[k][1] && wierzcholek1 == dataHolder.faces[k][2])
-										|| (wierzcholek0 == dataHolder.faces[k][2]
-												&& wierzcholek1 == dataHolder.faces[k][1]))
-								|| ((wierzcholek0 == dataHolder.faces[k][0] && wierzcholek1 == dataHolder.faces[k][2])
-										|| (wierzcholek0 == dataHolder.faces[k][2]
-												&& wierzcholek1 == dataHolder.faces[k][0])))) {
-							flag = 1;
+						if (!(((vertex0 == dataHolder.faces[k][0] && vertex1 == dataHolder.faces[k][1])
+								|| (vertex0 == dataHolder.faces[k][1] && vertex1 == dataHolder.faces[k][0]))
+								|| ((vertex0 == dataHolder.faces[k][1] && vertex1 == dataHolder.faces[k][2])
+										|| (vertex0 == dataHolder.faces[k][2]
+												&& vertex1 == dataHolder.faces[k][1]))
+								|| ((vertex0 == dataHolder.faces[k][0] && vertex1 == dataHolder.faces[k][2])
+										|| (vertex0 == dataHolder.faces[k][2]
+												&& vertex1 == dataHolder.faces[k][0])))) {
+							flag = true;
 						}
 					k++;
 				}
@@ -268,7 +267,7 @@ public class Exercise1 {
 			}
 			i++;
 		}
-		if (flag == 1)
+		if (flag)
 			System.out.println("Siatka posiada brzeg");
 		else
 			System.out.println("Siatka nie posiada brzegu");
@@ -279,27 +278,27 @@ public class Exercise1 {
 		System.out.println("\n3.2.1. dla kazdego wierzcholka wyznaczanie otoczenia wierzcholkow (pierwsza i druga warstwa sasiednich wierzcholkow)");
 		start = System.nanoTime();
 		for (Vertice v : dataHolder.vv) {
-			sasiedzi0 = new HashSet<Integer>();
-			sasiedzi1 = new HashSet<Integer>();
+			neighbors0 = new HashSet<Integer>();
+			neighbors1 = new HashSet<Integer>();
 			System.out.print("Wierzcholek nr " + v.id + " pierwsi sasiedzi: ");
 			for (HalfEdge edge : dataHolder.hedges) {
 				if (edge.endpoint == v.id) {
-					sasiedzi0.add(edge.previous.endpoint);
-					sasiedzi0.add(edge.next.endpoint);
+					neighbors0.add(edge.previous.endpoint);
+					neighbors0.add(edge.next.endpoint);
 				}
 			}
-			for (Integer k1 : sasiedzi0) {
+			for (Integer k1 : neighbors0) {
 				for (HalfEdge edge : dataHolder.hedges) {
 					if (edge.endpoint == k1) {
-						sasiedzi1.add(edge.previous.endpoint);
-						sasiedzi1.add(edge.next.endpoint);
+						neighbors1.add(edge.previous.endpoint);
+						neighbors1.add(edge.next.endpoint);
 					}
 				}
 				System.out.print(k1 + " ");
 			}
-			sasiedzi1.remove(v.id);
+			neighbors1.remove(v.id);
 			System.out.print("drudzy sasiedzi: ");
-			for (Integer k1 : sasiedzi1) {
+			for (Integer k1 : neighbors1) {
 				System.out.print(k1 + " ");
 			}
 			System.out.println();
@@ -362,10 +361,10 @@ public class Exercise1 {
 
 		System.out.println("\n3.2.4. zamiana krawedzi dla wskazanej pary przyleglych trojkatow wraz z odpowiednia zmiana struktury danych");
 		start = System.nanoTime();
-		boolean flagens = false;
+		flag = false;
 		for (Face face : dataHolder.ff) {
 			if (face.x.opposite != null) {
-				flagens = true;
+				flag = true;
 				int tmp1 = face.x.opposite.next.endpoint;
 				int tmp2 = face.x.endpoint;
 				int tmp3 = face.x.next.endpoint;
@@ -378,7 +377,7 @@ public class Exercise1 {
 				break;
 			}
 			if (face.y.opposite != null) {
-				flagens = true;
+				flag = true;
 				int tmp1 = face.y.opposite.next.endpoint;
 				int tmp2 = face.y.endpoint;
 				int tmp3 = face.y.next.endpoint;
@@ -391,7 +390,7 @@ public class Exercise1 {
 				break;
 			}
 			if (face.z.opposite != null) {
-				flagens = true;
+				flag = true;
 				int tmp1 = face.z.opposite.next.endpoint;
 				int tmp2 = face.z.endpoint;
 				int tmp3 = face.z.next.endpoint;
@@ -404,7 +403,7 @@ public class Exercise1 {
 				break;
 			}
 		}
-		if (flagens) {
+		if (flag) {
 			System.out.println("\nTablica elementow po zamianie krawedzi:");
 			for (Face face : dataHolder.ff)
 				System.out.println(face.z.endpoint + " " + face.x.endpoint + " " + face.y.endpoint);
@@ -414,14 +413,14 @@ public class Exercise1 {
 		
 		System.out.println("\n3.2.5. okreslenie, czy dana siatka posiada brzeg");
 		start = System.nanoTime();
-		boolean shapeEdge = false;
+		flag = false;
 		for (HalfEdge edge : dataHolder.hedges) {
 			if (edge.opposite == null) {
-				shapeEdge = true;
+				flag = true;
 				break;
 			}
 		}
-		if (shapeEdge)
+		if (flag)
 			System.out.println("Siatka posiada brzeg");
 		else
 			System.out.println("Siatka nie posiada brzegu");
