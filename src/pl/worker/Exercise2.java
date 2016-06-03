@@ -133,18 +133,18 @@ public class Exercise2 {
 		results.removeAll(results);
 		for (i = 0; i < dataHolder.faces.length; i++) {
 			lenMin = Double.MAX_VALUE;
-		    lenMax = Double.MIN_VALUE;
+			lenMax = Double.MIN_VALUE;
 			for (j = 0; j < 3; j++) {
 				vertex0 = dataHolder.faces[i][j];
 				vertex1 = dataHolder.faces[i][(j + 1) % 3];
 				dx = dataHolder.vertices[vertex0][0] - dataHolder.vertices[vertex1][0];
-		    	dy = dataHolder.vertices[vertex0][1] - dataHolder.vertices[vertex1][1];
-		    	dz = dataHolder.vertices[vertex0][2] - dataHolder.vertices[vertex1][2];
-		    	length = Math.sqrt (dx * dx + dy * dy + dz * dz);
-		    	if (length < lenMin) lenMin = length;
-		    	if (length > lenMax) lenMax = length;
+				dy = dataHolder.vertices[vertex0][1] - dataHolder.vertices[vertex1][1];
+				dz = dataHolder.vertices[vertex0][2] - dataHolder.vertices[vertex1][2];
+				length = Math.sqrt (dx * dx + dy * dy + dz * dz);
+				if (length < lenMin) lenMin = length;
+				if (length > lenMax) lenMax = length;
 			}
-			if (lenMin > 0 && lenMax > 0){
+			if (lenMin >= 0){
 				results.add(lenMax/lenMin);
 				//System.out.printf("Element: %d, aspect ratio: %.2f\n", i, lenMax/lenMin);
 			}
@@ -157,17 +157,17 @@ public class Exercise2 {
 			value = GetAngleABC(dataHolder.vertices[dataHolder.faces[i][0]],
 					dataHolder.vertices[dataHolder.faces[i][1]],
 					dataHolder.vertices[dataHolder.faces[i][2]]);
-			if (value > 0 && value < 180) results.add(value);
+			if (!Double.isNaN(value)) results.add(value);
 			
 			value = GetAngleABC(dataHolder.vertices[dataHolder.faces[i][1]],
 					dataHolder.vertices[dataHolder.faces[i][2]],
 					dataHolder.vertices[dataHolder.faces[i][0]]);
-			if (value > 0 && value < 180) results.add(value);
+			if (!Double.isNaN(value)) results.add(value);
 			
 			value = GetAngleABC(dataHolder.vertices[dataHolder.faces[i][2]],
 					dataHolder.vertices[dataHolder.faces[i][0]],
 					dataHolder.vertices[dataHolder.faces[i][1]]);
-			if (value > 0 && value < 180) results.add(value);
+			if (!Double.isNaN(value)) results.add(value);
 		}
 		PresentResults(results);
 		
@@ -186,21 +186,21 @@ public class Exercise2 {
 								|| (vertex0 == dataHolder.faces[k][1] && vertex1 == dataHolder.faces[k][0])) {
 							value = GetAngleABC(dataHolder.vertices[dataHolder.faces[i][(j + 2) % 3]],
 									point, dataHolder.vertices[dataHolder.faces[k][2]]);
-							if (value > 0 && value < 180) results.add(value);
+							if (!Double.isNaN(value)) results.add(value);
 						}
 						
 						if ((vertex0 == dataHolder.faces[k][1] && vertex1 == dataHolder.faces[k][2])
 								|| (vertex0 == dataHolder.faces[k][2] && vertex1 == dataHolder.faces[k][1])) {
 							value = GetAngleABC(dataHolder.vertices[dataHolder.faces[i][(j + 2) % 3]],
 									point, dataHolder.vertices[dataHolder.faces[k][0]]);
-							if (value > 0 && value < 180) results.add(value);
+							if (!Double.isNaN(value)) results.add(value);
 						}
 						
 						if ((vertex0 == dataHolder.faces[k][2] && vertex1 == dataHolder.faces[k][0])
 								|| (vertex0 == dataHolder.faces[k][0] && vertex1 == dataHolder.faces[k][2])) {
 							value = GetAngleABC(dataHolder.vertices[dataHolder.faces[i][(j + 2) % 3]],
 									point, dataHolder.vertices[dataHolder.faces[k][1]]);
-							if (value > 0 && value < 180) results.add(value);
+							if (!Double.isNaN(value)) results.add(value);
 						}
 					}
 				}
@@ -251,8 +251,8 @@ public class Exercise2 {
 		System.out.printf("Minimum: %.2f\n", wyniki.get(0));
 		System.out.printf("Maksimum: %.2f\n", wyniki.get(wyniki.size()-1));
 		System.out.printf("Srednia: %.2f\n", AVG);
-		System.out.println("Ilosc elementow ponizej sredniej: " + ltAVG);
-		System.out.println("Ilosc elementow powyzej sredniej: " + (wyniki.size() - ltAVG));
+		System.out.println("Liczba elementow ponizej sredniej: " + ltAVG);
+		System.out.println("Liczba elementow powyzej sredniej: " + (wyniki.size() - ltAVG));
 	}
 	
 	public static double GetAngleABC(double a[], double b[], double c[]) {
@@ -281,6 +281,6 @@ public class Exercise2 {
 		
 	    double res = abNorm[0] * bcNorm[0] + abNorm[1] * bcNorm[1] + abNorm[2] * bcNorm[2];
 
-	    return Math.acos(res) * 180.0 / 3.141592653589793;
+	    return Math.acos(res) * 180.0 / Math.PI;
 	}
 }
